@@ -45,7 +45,7 @@ const int MAX_N = 1e5 + 7;
 #define ubset(s,target) s.upper_bound(target)
 #define JOIN_STRINGS(vec) std::accumulate((vec).begin(), (vec).end(), std::string(""))
 #define vin(v) for(int i=0; i<(int)v.size(); i++) cin>>v[i] // Only for 0-based indexing inputs
-#define vout(v) for(int i=0; i<(int)v.size(); i++) cout<<v[i]<<' ' // Only for 0-based indexing outputs
+#define vout(v) for(int i=0; i<(int)v.size(); i++) cout<<v[i]<<(i + 1 == (int)v.size() ? '\n' : ' ') // Only for 0-based indexing outputs
 #define debug(x) cerr << #x << " = " << x << endl;
 #define add(a,b) a=(a+(b))%MOD
 #define minRotate(v) rotate(begin(v), ranges::min_element(v), end(v))
