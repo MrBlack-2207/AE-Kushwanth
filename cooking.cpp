@@ -54,6 +54,71 @@ const int MAX_N = 1e5 + 7;
 #define no cout<<"NO"<<endl
 #define INF 1e9+100
 using namespace std;
+// ──────────────────────────────────────────────────────────────────────────────
+// modint<MOD>
+// ──────────────────────────────────────────────────────────────────────────────
+template<ll M>
+struct modint {
+    ll v;
+    constexpr modint(ll _v = 0) noexcept {
+        v = _v % M;
+        if (v < 0) v += M;
+    }
+    // addition / subtraction
+    constexpr modint& operator+=(modint o) noexcept {
+        v += o.v;
+        if (v >= M) v -= M;
+        return *this;
+    }
+    constexpr modint& operator-=(modint o) noexcept {
+        v -= o.v;
+        if (v < 0) v += M;
+        return *this;
+    }
+    // multiplication
+    constexpr modint& operator*=(modint o) noexcept {
+        v = (unsigned long long)v * o.v % M;
+        return *this;
+    }
+    // binary exponentiation
+    friend modint power(modint x, ll e) {
+        modint res(1);
+        while (e > 0) {
+            if (e & 1) res *= x;
+            x *= x;
+            e >>= 1;
+        }
+        return res;
+    }
+    // inverse (M must be prime)
+    friend modint inv(modint x) {
+        return power(x, M - 2);
+    }
+    // division
+    constexpr modint& operator/=(modint o) noexcept {
+        return *this *= inv(o);
+    }
+
+    // lee-way operators
+    constexpr modint operator+(modint o) const noexcept { return modint(*this) += o; }
+    constexpr modint operator-(modint o) const noexcept { return modint(*this) -= o; }
+    constexpr modint operator*(modint o) const noexcept { return modint(*this) *= o; }
+    constexpr modint operator/(modint o) const noexcept { return modint(*this) /= o; }
+
+    // I/O
+    friend ostream& operator<<(ostream& os, modint x) {
+        return os << x.v;
+    }
+    friend istream& operator>>(istream& is, modint& x) {
+        ll t; is >> t; x = modint(t); return is;
+    }
+};
+
+static constexpr ll MOD = 998244353;
+using mint = modint<MOD>;
+
+
+
 #define GCD(a, b) __gcd(a, b)
 bool iseven(ll n) {if ((n & 1) == 0) return true; return false;}
 void solve() {
